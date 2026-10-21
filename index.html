@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roz Ka Nizam</title>
+<meta name="theme-color" content="#060606">
+<meta name="color-scheme" content="dark">
+<meta name="description" content="Roz ka time-wise schedule, discipline aur reminders">
+<link rel="manifest" href="/manifest.webmanifest">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Nizam">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=Figtree:wght@400;500;700&display=swap">
+<style>
+:root{--bk:#060606;--c1:#0f0f0f;--c2:#171715;--line:#2e2615;--g1:#f6dc8c;--g2:#d9a928;--g3:#8c6a14;--gold:linear-gradient(135deg,#f6dc8c,#d9a928 55%,#a77c14);--ink:#f5ecd3;--mute:#a3987a;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;background:var(--bk)}
+body{margin:0;background:var(--bk);color:var(--ink);font:16px/1.55 Figtree,system-ui,-apple-system,"Segoe UI",sans-serif;padding:env(safe-area-inset-top,0) env(safe-area-inset-right,0) env(safe-area-inset-bottom,0) env(safe-area-inset-left,0);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(700px 380px at 50% -80px,rgba(217,169,40,.16),transparent 70%),repeating-linear-gradient(0deg,rgba(217,169,40,.045) 0 1px,transparent 1px 46px),repeating-linear-gradient(90deg,rgba(217,169,40,.045) 0 1px,transparent 1px 46px);z-index:0}
+main{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:14px 14px 110px}
+h1,h2,h3,.num{font-family:"Chakra Petch",system-ui,sans-serif;margin:0;line-height:1.1}
+h2{font-size:1.2rem;margin-bottom:12px;color:var(--g1)}
+:focus-visible{outline:3px solid var(--g1);outline-offset:3px}
+.gt{background:linear-gradient(100deg,#a77c14 10%,#fff1b8 30%,#d9a928 50%,#a77c14 90%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 5s linear infinite}
+@keyframes shine{to{background-position:-220% 0}}
+.rise{opacity:0;transform:translateY(16px);animation:rise .8s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.card,.hero{position:relative;background:linear-gradient(160deg,var(--c2),var(--c1));border:1px solid var(--line);border-radius:6px;padding:18px;margin-bottom:12px}
+.card::before,.hero::before{content:"";position:absolute;left:-1px;top:-1px;width:18px;height:18px;border-left:2px solid var(--g2);border-top:2px solid var(--g2)}
+.card::after,.hero::after{content:"";position:absolute;right:-1px;bottom:-1px;width:18px;height:18px;border-right:2px solid var(--g2);border-bottom:2px solid var(--g2)}
+.hero{padding:22px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center;overflow:hidden}
+@media(max-width:560px){.hero{grid-template-columns:1fr;justify-items:center;text-align:center}}
+.brand{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:1.05rem;margin-bottom:6px}
+.rb{position:relative;width:160px;height:160px}
+.rb::before{content:"";position:absolute;inset:-6px;border-radius:50%;background:conic-gradient(from 0deg,transparent 0 60%,var(--g1) 85%,transparent 100%);animation:spin 6s linear infinite;-webkit-mask:radial-gradient(circle,transparent 66%,#000 67%);mask:radial-gradient(circle,transparent 66%,#000 67%);opacity:.8}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rb svg{position:relative;width:100%;height:100%;transform:rotate(-90deg)}
+.rb .tr{stroke:#25200f}
+.rb .pg{transition:stroke-dashoffset 1.2s cubic-bezier(.2,.8,.2,1)}
+.rc{position:absolute;inset:0;display:grid;place-content:center;text-align:center}
+.rc .num{font-size:2.6rem;font-weight:700;color:var(--g1)}
+.rc small{color:var(--mute)}
+.ht{min-width:0}
+.hi{margin:0 0 4px;color:var(--mute)}
+.ht h1{font-size:clamp(1.5rem,5vw,2.1rem);font-weight:700;letter-spacing:-.01em}
+.nx{margin:6px 0 0;color:var(--ink);opacity:.85}
+.q{margin:10px 0 0;color:var(--mute);font-size:.92rem;font-style:italic}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+@media(max-width:560px){.chips{justify-content:center}}
+.chip{border:1px solid var(--line);background:rgba(217,169,40,.06);border-radius:4px;padding:5px 12px;font-weight:700;font-size:.85rem;color:var(--g1)}
+.chip.f{background:var(--gold);color:#120d00;border-color:transparent}
+.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:8px;margin-bottom:12px}
+.btn{position:relative;overflow:hidden;border:0;border-radius:6px;padding:13px 14px;font:inherit;font-weight:700;cursor:pointer;background:var(--gold);color:#120d00;text-align:left;transition:transform .15s}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:sweep 4.5s ease-in-out infinite}
+@keyframes sweep{0%,60%{left:-60%}100%{left:130%}}
+.btn:active{transform:scale(.97)}
+.btn.g{background:var(--c1);color:var(--g1);border:1px solid var(--g3)}
+.btn.g::after{display:none}
+.btn small{display:block;font-weight:500;opacity:.78;font-size:.78rem;margin-top:2px}
+.info{background:var(--c1);border:1px solid var(--line);border-left:3px solid var(--g2);border-radius:4px;padding:12px 14px;margin-bottom:12px;color:var(--mute);font-size:.9rem}
+.info[hidden]{display:none}
+.info b{color:var(--g1)}
+.tl{position:relative;margin:0;padding:0;list-style:none}
+.tl::before{content:"";position:absolute;left:86px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--g3),var(--line))}
+.it{display:grid;grid-template-columns:62px 36px 1fr;gap:0 4px;margin-bottom:10px}
+.tm{font-family:"Chakra Petch",sans-serif;font-weight:700;font-size:.9rem;text-align:right;padding-top:14px;color:var(--mute)}
+.dt{position:relative;z-index:1;width:34px;height:34px;margin-top:8px;margin-left:4px;border-radius:50%;background:var(--bk);border:2px solid var(--g3);display:grid;place-content:center;font-size:.95rem;transition:all .3s}
+.bx{background:var(--c1);border:1px solid var(--line);border-radius:6px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;justify-content:space-between;transition:all .25s;position:relative;overflow:hidden}
+.bx b{font-family:"Chakra Petch",sans-serif;font-size:1.05rem;display:block}
+.bx p{margin:3px 0 0;color:var(--mute);font-size:.88rem}
+.tk{flex:none;width:34px;height:34px;border-radius:50%;border:2px solid var(--g3);background:transparent;cursor:pointer;color:transparent;font-size:1rem;font-weight:700;transition:all .25s}
+.it.done .tk{background:var(--gold);border-color:transparent;color:#120d00;transform:scale(1.1)}
+.it.done .bx{opacity:.62}
+.it.done .bx b{text-decoration:line-through}
+.it.done .dt{border-color:var(--g1);box-shadow:0 0 12px rgba(246,220,140,.35)}
+.it.now .bx{border-color:var(--g2);background:linear-gradient(160deg,#1e1a0d,var(--c1));animation:glow 2.6s ease-in-out infinite}
+.it.now .bx::after{content:"";position:absolute;top:0;left:-50%;width:30%;height:100%;background:linear-gradient(100deg,transparent,rgba(246,220,140,.14),transparent);animation:sweep 3.6s ease-in-out infinite}
+.it.now .dt{border-color:var(--g1);background:var(--gold)}
+.it.miss .bx{border-style:dashed}
+@keyframes glow{50%{box-shadow:0 0 22px rgba(217,169,40,.28)}}
+.tag{display:inline-block;background:var(--gold);color:#120d00;border-radius:3px;font-size:.7rem;font-weight:800;padding:2px 9px;margin-bottom:5px}
+.ed{display:grid;gap:6px;width:100%}
+.ed input,.ed textarea,.set select,.set input{width:100%;font:inherit;color:var(--ink);background:var(--bk);border:1px solid var(--g3);border-radius:4px;padding:8px 10px}
+.ed textarea{min-height:60px;resize:vertical}
+.ed .r{display:grid;grid-template-columns:110px 1fr auto;gap:6px}
+.del{border:0;background:none;color:var(--g2);font-size:1.4rem;cursor:pointer}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+@media(max-width:680px){.grid2{grid-template-columns:1fr}}
+.grid2 .card{margin-bottom:0}
+.wk{display:flex;gap:8px}
+.wk div{flex:1;text-align:center;font-size:.78rem;color:var(--mute)}
+.wk i{display:block;height:46px;border-radius:4px;background:#1b170b;border:1px solid var(--line);margin-bottom:5px;transition:all .5s}
+.wk i.m{background:var(--g3);border-color:var(--g3)}.wk i.g{background:var(--gold);border-color:transparent}
+.rules{margin:0;padding-left:20px;color:var(--mute)}
+.rules li{margin:5px 0}.rules b{color:var(--g1)}
+.set{display:grid;gap:8px}.set label{font-size:.82rem;color:var(--mute)}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.mini{border:1px solid var(--g3);background:var(--c1);color:var(--g1);border-radius:4px;padding:9px 14px;font:inherit;font-weight:700;cursor:pointer}
+#bar{position:fixed;left:0;right:0;bottom:0;z-index:40;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:linear-gradient(0deg,#060606 60%,transparent);display:flex;justify-content:center}
+#bar[hidden]{display:none}
+#bar .btn{width:100%;max-width:520px;text-align:center;font-size:1.02rem;padding:14px;box-shadow:0 0 26px rgba(217,169,40,.3)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--c2);color:var(--g1);border:1px solid var(--g2);padding:11px 18px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .25s;z-index:60;max-width:90vw;text-align:center}
+.toast.on{opacity:1}
+.bit{position:fixed;width:9px;height:9px;border-radius:2px;pointer-events:none;z-index:70}
+.pt{position:fixed;bottom:-10px;width:3px;height:3px;border-radius:50%;background:var(--g1);opacity:0;pointer-events:none;z-index:0;animation:fl linear infinite}
+@keyframes fl{0%{transform:translateY(0);opacity:0}15%{opacity:.7}100%{transform:translateY(-105vh);opacity:0}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rise{opacity:1;transform:none}.pt{display:none}}
+</style>
+</head>
+<body>
+<main>
+<section class="hero rise">
+<div class="rb"><svg viewBox="0 0 120 120" aria-hidden="true"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f6dc8c"/><stop offset=".55" stop-color="#d9a928"/><stop offset="1" stop-color="#a77c14"/></linearGradient></defs><circle class="tr" cx="60" cy="60" r="54" fill="none" stroke-width="9"/><circle class="pg" id="ring" cx="60" cy="60" r="54" fill="none" stroke="url(#g)" stroke-width="9" stroke-linecap="round" stroke-dasharray="339.3" stroke-dashoffset="339.3"/></svg><div class="rc"><span class="num" id="rn">0/0</span><small>aaj ke kaam</small></div></div>
+<div class="ht">
+<div class="brand gt">Roz Ka Nizam</div>
+<p class="hi" id="greet"></p>
+<h1 id="now">...</h1>
+<p class="nx" id="next"></p>
+<p class="q" id="quote"></p>
+<div class="chips"><span class="chip f">🔥 <span id="st">0</span> din lagatar</span><span class="chip" id="best"></span><span class="chip" id="clock"></span></div>
+</div>
+</section>
+
+<div class="tools rise" style="animation-delay:.08s">
+<button class="btn" id="b-inst">📲 App install karo<small>Phone ki home screen par</small></button>
+<button class="btn g" id="b-notif">🔔 Reminder on karo<small id="notif-s">Waqt par notification</small></button>
+<button class="btn g" id="b-ics">📅 Calendar mein daalo<small>Pakka alarm, app band ho tab bhi</small></button>
+</div>
+<div class="info" id="how" hidden></div>
+
+<section class="card rise" style="animation-delay:.14s">
+<h2>Aaj ka schedule</h2>
+<ul class="tl" id="tl"></ul>
+<div class="btns"><button class="mini" id="edit">✏️ Schedule badlo</button><button class="mini" id="add" hidden>+ Naya kaam</button><button class="mini" id="reset" hidden>Asal schedule wapas</button></div>
+</section>
+
+<div class="grid2 rise" style="animation-delay:.2s">
+<section class="card"><h2>📈 Ye hafta</h2><div class="wk" id="wk"></div><p class="info" style="margin:12px 0 0">Din kamyab = kam az kam 60% kaam poore.</p></section>
+<section class="card"><h2>🎯 Mera ek project</h2>
+<div class="set"><label for="proj">Agle 30 din sirf ye project</label><input id="proj" placeholder="Project ka naam"></div>
+<ol class="rules" style="margin-top:12px"><li><b>Naya idea?</b> Likh kar rakho, shuru mat karo.</li><li><b>Pehle bech lo,</b> phir naya banao.</li><li><b>Research</b> 20% rakho, baqi banana.</li></ol></section>
+</div>
+
+<section class="card rise" style="animation-delay:.26s">
+<h2>⚙️ Reminder settings</h2>
+<div class="set"><label for="lead">Kitna pehle yaad dilaun?</label>
+<select id="lead"><option value="0">Theek waqt par</option><option value="5">5 minute pehle</option><option value="10">10 minute pehle</option></select></div>
+<div class="btns"><button class="mini" id="test">Test reminder bhejo</button></div>
+<p class="info" style="margin:12px 0 0">Reminder tab chalta hai jab app khula ya background mein ho. App band hone par bhi pakka alert chahiye to <b>Calendar mein daalo</b> dabao, ye phone ke calendar mein roz ka alarm laga deta hai.</p>
+</section>
+</main>
+<div id="bar"><button class="btn" id="bar-b">📲 App install karo</button></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function toast(t){var e=$("toast");e.textContent=t;e.className="toast on";setTimeout(function(){e.className="toast"},2800)}
+function key(d){var m=d.getMonth()+1,x=d.getDate();return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(x<10?"0":"")+x}
+function back(n){var d=new Date();d.setDate(d.getDate()-n);return d}
+function toM(t){var p=String(t).split(":");return (+p[0]||0)*60+(+p[1]||0)}
+function f12(t){var p=t.split(":"),h=+p[0],a=h>=12?"PM":"AM";h=h%12||12;return h+":"+(p[1]||"00")+" "+a}
+function pad(n){return n<10?"0"+n:""+n}
+var RM=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
+var DEF=[
+["09:00","🌅","Uthna","Paani piyo, bistar theek karo, 10 minute khuli hawa ya dhoop. Phone abhi door."],
+["09:30","🚶","Walk ya exercise (30 min)","Ghar se bahar nikal kar chalo. Phone sirf music ke liye."],
+["10:15","🍳","Nashta aur tayyari","Nashta, nahana, kaam ki jagah saaf. Social media nahi."],
+["11:00","🎯","Deep Work 1 (2 ghante)","Sirf apna ek project. Phone airplane mode. Research nahi, banao."],
+["13:00","🍽️","Lunch aur break","Khana khao, thora aaram. Scroll nahi."],
+["14:00","💰","Client outreach (45 min)","5 naye logon ko message aur purane clients ka follow-up. Ye paisay ka kaam hai."],
+["15:00","💻","Coding practice (60 min)","Pehle 20 minute khud likho, AI ke bina. Phir AI se check karo aur samjho."],
+["16:00","🗣️","English practice (20 min)","Aaj ka ek message ya paragraph English mein likho aur bolo."],
+["17:00","🏠","Free time aur ghar ke kaam","Apna waqt. Ghar walon aur dosto ke saath."],
+["19:30","🚀","Deep Work 2 (1 ghanta)","Wohi ek project: marketing, client ko dikhana, baqi kaam."],
+["21:30","📝","Aaj ka review (10 min)","Kya kiya? Focus ghante likho. Kal ke sirf 3 kaam chuno."],
+["22:30","📵","Screen band","Phone door charge par. Kitab, paani, halki baat."],
+["23:30","🌙","Sona","Light band. Kal 9:00 uthna hai."]];
+function defBlocks(){return DEF.map(function(b,i){return {id:"d"+i,t:b[0],e:b[1],ti:b[2],d:b[3]}})}
+var S={blocks:defBlocks(),done:{},fired:{},hist:{},lead:0,proj:"",best:0,edit:false};
+try{var raw=localStorage.getItem("nizam_v1");if(raw){var o=JSON.parse(raw);if(o&&o.blocks)S=Object.assign(S,o)}}catch(e){}
+S.edit=false;
+function save(){try{localStorage.setItem("nizam_v1",JSON.stringify(S))}catch(e){}}
+var TODAY=key(new Date());
+function sorted(){return S.blocks.slice().sort(function(a,b){return toM(a.t)-toM(b.t)})}
+function doneToday(){return S.done[TODAY]||(S.done[TODAY]=[])}
+function ratio(k){var h=S.hist[k];return h&&h.t?h.n/h.t:0}
+function sync(){var n=doneToday().filter(function(id){return S.blocks.some(function(b){return b.id===id})}).length;S.hist[TODAY]={n:n,t:S.blocks.length};save()}
+function streak(){var s=ratio(TODAY)>=.6?1:0,i;for(i=1;i<400;i++){if(ratio(key(back(i)))>=.6)s++;else break}return s}
+var QUOTES=["Chhota kaam, roz. Wahi bara farq banata hai.","Motivation aati jaati hai, nizam rehta hai.","Perfect shuruaat nahi, bas shuruaat.","Ek project, ek raasta, 30 din.","Jo aaj mushkil hai wo kal aadat banega.","Tez nahi, lagatar chalo.","Pehle aaj ka kaam, planning baad mein.","Har tick ek vote hai: main aisa insaan banunga."];
+function curIdx(list){var n=new Date(),m=n.getHours()*60+n.getMinutes(),c=-1;for(var i=0;i<list.length;i++){if(toM(list[i].t)<=m)c=i}return c}
+function render(){
+ var list=sorted(),ci=curIdx(list),dn=doneToday(),h="";
+ list.forEach(function(b,i){
+  var on=dn.indexOf(b.id)>-1,cl="it"+(on?" done":"")+(i===ci&&!on?" now":"")+(i<ci&&!on?" miss":"");
+  if(S.edit){h+='<li class="it"><div class="tm">'+f12(b.t)+'</div><div class="dt">'+b.e+'</div><div class="bx"><div class="ed"><div class="r"><input type="time" value="'+b.t+'" data-f="t" data-id="'+b.id+'" aria-label="Waqt"><input value="'+esc(b.ti)+'" data-f="ti" data-id="'+b.id+'" aria-label="Kaam"><button class="del" data-del="'+b.id+'" aria-label="Hatao">&times;</button></div><textarea data-f="d" data-id="'+b.id+'" aria-label="Tafseel">'+esc(b.d)+'</textarea></div></div></li>'}
+  else h+='<li class="'+cl+'"><div class="tm">'+f12(b.t)+'</div><div class="dt">'+b.e+'</div><div class="bx"><div>'+(i===ci&&!on?'<span class="tag">ABHI</span>':"")+'<b>'+esc(b.ti)+'</b><p>'+esc(b.d)+'</p></div><button class="tk" data-tk="'+b.id+'" aria-label="Poora hua">✓</button></div></li>'});
+ $("tl").innerHTML=h;$("add").hidden=$("reset").hidden=!S.edit;$("edit").textContent=S.edit?"✅ Ho gaya":"✏️ Schedule badlo";
+ stats();
+}
+function stats(){
+ var n=S.hist[TODAY]?S.hist[TODAY].n:0,t=S.blocks.length,st=streak();if(st>S.best){S.best=st;save()}
+ $("ring").style.strokeDashoffset=339.3*(1-(t?n/t:0));$("rn").textContent=n+"/"+t;$("st").textContent=st;$("best").textContent="Behtareen: "+S.best+" din";
+ var w="";for(var i=6;i>=0;i--){var k=key(back(i)),r=ratio(k);w+='<div><i class="'+(r>=.9?"g":r>=.6?"m":"")+'"></i>'+back(i).toLocaleDateString("en-GB",{weekday:"short"}).slice(0,2)+'</div>'}
+ $("wk").innerHTML=w;
+}
+function tick(){
+ var d=new Date(),list=sorted(),ci=curIdx(list),m=d.getHours()*60+d.getMinutes();
+ $("clock").textContent=f12(pad(d.getHours())+":"+pad(d.getMinutes()));
+ $("now").textContent=ci<0?"Din shuru hone mein hai":list[ci].e+" "+list[ci].ti;
+ var nx=list[ci+1];
+ if(nx){var diff=toM(nx.t)-m;$("next").textContent="Agla: "+nx.ti+" ("+(diff>=60?Math.floor(diff/60)+" ghante "+diff%60+" min":diff+" min")+" mein)"}
+ else $("next").textContent=list.length?"Aaj ka aakhri kaam. Kal subah "+f12(list[0].t)+" par milte hain.":"Koi kaam nahi, schedule mein add karo.";
+ if(key(d)!==TODAY){TODAY=key(d);render()}
+ list.forEach(function(b){var at=toM(b.t)-(Number(S.lead)||0);if(at===m){var f=S.fired[TODAY]||(S.fired[TODAY]=[]);if(f.indexOf(b.id)===-1){f.push(b.id);save();notify(b)}}});
+}
+function notify(b,test){
+ var title="⏰ "+f12(b.t)+": "+b.ti;
+ toast(title);try{if(navigator.vibrate)navigator.vibrate([200,100,200])}catch(e){}
+ if(!("Notification" in window)||Notification.permission!=="granted")return;
+ var opt={body:b.d,icon:"/icon-192.png",badge:"/icon-192.png",tag:(test?"test":b.id+TODAY),renotify:true};
+ if(navigator.serviceWorker&&navigator.serviceWorker.getRegistration){navigator.serviceWorker.getRegistration().then(function(r){if(r)r.showNotification(title,opt);else new Notification(title,opt)}).catch(function(){try{new Notification(title,opt)}catch(e){}})}
+ else{try{new Notification(title,opt)}catch(e){}}
+}
+function notifState(){
+ if(!("Notification" in window)){$("notif-s").textContent="Is browser mein support nahi";return}
+ var p=Notification.permission;$("notif-s").textContent=p==="granted"?"On hai, app khula rakho":p==="denied"?"Browser settings mein allow karo":"Waqt par notification"
+}
+$("b-notif").onclick=function(){
+ if(!("Notification" in window)){toast("Is browser mein notification nahi hai. Calendar wala button use karo.");return}
+ if(Notification.permission==="granted"){toast("Reminder pehle se on hai");return}
+ Notification.requestPermission().then(function(){notifState();if(Notification.permission==="granted")toast("Reminder on ho gaya ✅")})
+};
+$("test").onclick=function(){notify({t:pad(new Date().getHours())+":"+pad(new Date().getMinutes()),ti:"Test reminder",d:"Agar ye dikh raha hai to reminder theek chal raha hai."},true)};
+$("lead").onchange=function(){S.lead=Number(this.value);save();toast("Theek hai, "+(S.lead?S.lead+" minute pehle":"theek waqt par")+" yaad dilaunga")};
+function ics(s){return String(s).replace(/\\/g,"\\\\").replace(/;/g,"\\;").replace(/,/g,"\\,").replace(/\n/g,"\\n")}
+$("b-ics").onclick=function(){
+ var list=sorted(),d=new Date(),ds=d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate()),L=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Roz Ka Nizam//UR","CALSCALE:GREGORIAN"],stamp=new Date().toISOString().replace(/[-:]/g,"").slice(0,15)+"Z";
+ list.forEach(function(b){
+  var s=toM(b.t),e=Math.min(s+30,1439),lead=Number(S.lead)||0;
+  L.push("BEGIN:VEVENT","UID:nizam-"+b.id+"@roz-ka-nizam","DTSTAMP:"+stamp,"DTSTART:"+ds+"T"+pad(Math.floor(s/60))+pad(s%60)+"00","DTEND:"+ds+"T"+pad(Math.floor(e/60))+pad(e%60)+"00","RRULE:FREQ=DAILY","SUMMARY:"+ics(b.e+" "+b.ti),"DESCRIPTION:"+ics(b.d),"BEGIN:VALARM","TRIGGER:-PT"+lead+"M","ACTION:DISPLAY","DESCRIPTION:"+ics(b.ti),"END:VALARM","END:VEVENT")});
+ L.push("END:VCALENDAR");
+ try{var blob=new Blob([L.join("\r\n")],{type:"text/calendar"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="roz-ka-nizam.ics";document.body.appendChild(a);a.click();a.remove();toast("File ban gayi. Kholo aur Calendar mein add karo.")}catch(err){toast("Download nahi hua, dobara try karo")}
+};
+
+var dp=null,UA=navigator.userAgent,isIOS=/iphone|ipad|ipod/i.test(UA),inApp=/FBAN|FBAV|Instagram|WhatsApp|Line\/|Snapchat|TikTok|Messenger/i.test(UA);
+var standalone=(window.matchMedia&&matchMedia("(display-mode:standalone)").matches)||navigator.standalone;
+if(standalone){$("bar").hidden=true;$("b-inst").hidden=true}
+window.addEventListener("beforeinstallprompt",function(e){e.preventDefault();dp=e});
+window.addEventListener("appinstalled",function(){$("bar").hidden=true;$("b-inst").hidden=true;toast("App install ho gayi 🎉")});
+function how(){
+ var t=inApp?"Ye link kisi app (WhatsApp, Instagram wagera) ke andar khula hai. Upar <b>⋮</b> ya Share dabao, <b>Open in Chrome</b> (iPhone par Safari) chuno, phir dobara install dabao."
+ :isIOS?"iPhone par: <b>Safari</b> mein neeche <b>Share</b> (teer wala dabba) dabao, phir <b>Add to Home Screen</b>, phir <b>Add</b>."
+ :"Android par: <b>Chrome</b> mein upar <b>⋮</b> (teen nuqtay) dabao, phir <b>Install app</b> ya <b>Add to Home screen</b> chuno. Agar ye na dikhe to page ek dafa refresh karke 1 minute baad dobara dekho.";
+ $("how").innerHTML=t;$("how").hidden=false;$("how").scrollIntoView({behavior:"smooth",block:"center"})
+}
+function install(){
+ if(dp){dp.prompt();if(dp.userChoice)dp.userChoice.then(function(){dp=null});else dp=null}
+ else how()
+}
+$("b-inst").onclick=install;$("bar-b").onclick=install;
+
+function burst(x,y,n){
+ if(RM)return;var c=["#f6dc8c","#d9a928","#a77c14","#fff1b8"];
+ for(var i=0;i<n;i++){var e=document.createElement("span");e.className="bit";e.style.left=x+"px";e.style.top=y+"px";e.style.background=c[i%c.length];document.body.appendChild(e);
+  var a=Math.random()*Math.PI*2,r=50+Math.random()*110;
+  e.animate([{transform:"translate(0,0) rotate(0)",opacity:1},{transform:"translate("+Math.cos(a)*r+"px,"+(Math.sin(a)*r+80)+"px) rotate("+(Math.random()*540)+"deg)",opacity:0}],{duration:800+Math.random()*500,easing:"cubic-bezier(.2,.7,.3,1)"}).onfinish=(function(el){return function(){el.remove()}})(e)}
+}
+$("tl").onclick=function(e){
+ var id=e.target.getAttribute("data-tk"),del=e.target.getAttribute("data-del");
+ if(id){var dn=doneToday(),p=dn.indexOf(id),r=e.target.getBoundingClientRect();if(p>-1)dn.splice(p,1);else dn.push(id);sync();render();
+  if(p===-1){burst(r.left+16,r.top+16,12);var h=S.hist[TODAY];if(h&&h.t&&h.n===Math.ceil(h.t*.6)){toast("Aaj ka din kamyab! 🔥");burst(innerWidth/2,innerHeight/3,40)}if(h&&h.n===h.t){toast("Perfect din! Sab poore 👑");burst(innerWidth/2,innerHeight/3,70)}}}
+ if(del){S.blocks=S.blocks.filter(function(b){return b.id!==del});sync();render()}
+};
+$("tl").oninput=function(e){var f=e.target.getAttribute("data-f"),id=e.target.getAttribute("data-id");if(!f)return;S.blocks.forEach(function(b){if(b.id===id)b[f]=e.target.value});save()};
+$("tl").onchange=function(e){if(e.target.getAttribute("data-f")==="t")render()};
+$("edit").onclick=function(){S.edit=!S.edit;if(!S.edit)sync();render()};
+$("add").onclick=function(){S.blocks.push({id:"n"+Date.now(),t:"12:00",e:"⭐",ti:"Naya kaam",d:"Kya karna hai likho"});sync();render()};
+$("reset").onclick=function(){if(confirm("Schedule asal haalat mein wapas kar den?")){S.blocks=defBlocks();S.edit=false;sync();render()}};
+$("proj").value=S.proj;$("proj").oninput=function(){S.proj=this.value;save()};
+$("lead").value=String(S.lead);
+var hr=new Date().getHours();
+$("greet").textContent=hr<5?"Raat hai, kal ke liye so jao":hr<12?"Subah bakhair":hr<17?"Dopahar bakhair":hr<21?"Shaam bakhair":"Raat bakhair";
+$("quote").textContent=QUOTES[Math.floor(new Date()/864e5)%QUOTES.length];
+if(!RM){for(var i=0;i<16;i++){var p=document.createElement("span");p.className="pt";p.style.left=Math.random()*100+"vw";p.style.animationDuration=(9+Math.random()*10)+"s";p.style.animationDelay=(-Math.random()*14)+"s";p.style.transform="scale("+(0.6+Math.random()*1.4)+")";document.body.appendChild(p)}}
+sync();render();tick();notifState();
+setInterval(tick,15000);
+document.addEventListener("visibilitychange",function(){if(!document.hidden){tick();render()}});
+if("serviceWorker" in navigator&&/^https?:/.test(location.protocol)){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})})}
+</script>
+</body>
+</html>
